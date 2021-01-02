@@ -1,0 +1,7 @@
+bridge01.jpg bridge02.jpg
+hill01.jpg hill02.jpg hill03.jpg
+ledge01.jpg ledge02.jpg ledge03.jpg
+newspaper01.jpg newspaper02.jpg newspaper03.jpg newspaper04.jpg
+pier01.jpg pier02.jpg pier03.jpg
+snow1.png snow2.png
+uttower01.jpg uttower02.jpg

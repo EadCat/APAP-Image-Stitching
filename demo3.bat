@@ -1,0 +1,1 @@
+python main.py --img1 ./images/demo3/prague1.jpg --img2 ./images/demo3/prague2.jpg --image_show 1 --saveroot ./images/demo3/results --verbose True --warping_progress True --resize 800 800
