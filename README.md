@@ -126,7 +126,15 @@ thanks.
 
 
 
-## 7. Author
+## 7. Optimization
+
+There is room for optimization in the local warping algorithm by using numpy library. (operation speed)
+
+
+
+
+
+## 8. Author
 
 Dae-Young Song
 
