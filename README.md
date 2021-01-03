@@ -10,6 +10,8 @@ This program takes a list of images and performs stitching recursively.
 
 
 
+
+
 ## 1. Target Research Paper
 
 The research paper: https://cs.adelaide.edu.au/~tjchin/apap/
@@ -17,6 +19,8 @@ The research paper: https://cs.adelaide.edu.au/~tjchin/apap/
 **Zaragoza, Julio, et al. "As-projective-as-possible image stitching with moving DLT." *Proceedings of the IEEE conference on computer vision and pattern recognition*. 2013.**
 
 ![Figure1](./assets/Figure1.JPG)
+
+
 
 
 
@@ -40,6 +44,8 @@ Editor: PyCharm
 
 
 
+
+
 ## 3. Quick Start
 
 ### Windows User
@@ -51,6 +57,8 @@ run demo.bat files on terminal.
 ### Linux User
 
 unzip demo_sh.zip and run demo.sh files on terminal.
+
+
 
 
 
@@ -67,7 +75,19 @@ unzip demo_sh.zip and run demo.sh files on terminal.
 
 
 
-## 5. References
+
+
+## 5. Why do stitching recursively?
+
+If stitching is performed sequentially from the left, the picture is excessively oriented to one side. In that case, it becomes difficult to estimate the correct homography.
+
+![Recursive](./assets/Figure2.gif)
+
+
+
+
+
+## 6. References
 
 ### code
 
@@ -87,11 +107,15 @@ thanks.
 
 
 
-## 6. Author
+
+
+## 7. Author
 
 Dae-Young Song
 
 Undergraduate student, Department of Electronic Engineering, Chungnam National University
 
 [Github][EadCat (Dae-Young Song) (github.com)](https://github.com/EadCat)
+
+
 
