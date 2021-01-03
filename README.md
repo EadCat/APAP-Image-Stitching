@@ -2,7 +2,7 @@
 
 ---
 
-2020.12.28. ~ 2021.01.03.
+***2020.12.28. ~ 2021.01.03.***
 
 Local-Homography warping
 
@@ -10,24 +10,29 @@ This program takes a list of images and performs stitching recursively.
 
 
 
-## Target Research Paper
+## 1. Target Research Paper
 
 The research paper: https://cs.adelaide.edu.au/~tjchin/apap/
 
 **Zaragoza, Julio, et al. "As-projective-as-possible image stitching with moving DLT." *Proceedings of the IEEE conference on computer vision and pattern recognition*. 2013.**
 
-![Figure1](./assets/figure1.jpg)
+![Figure1](./assets/Figure1.jpg)
 
 
 
-## Dependencies
+## 2. Dependencies
 
 ```
 python == 3.8.5
+
 numpy == 1.19.2
+
 opencv-python == 4.4.0.46
+
 opencv-contrib-python == 4.4.0.46
+
 pillow == 8.0.1
+
 argparse
 ```
 
@@ -35,7 +40,7 @@ Editor: PyCharm
 
 
 
-## Quick Start
+## 3. Quick Start
 
 ### Windows User
 
@@ -49,7 +54,7 @@ unzip demo_sh.zip and run demo.sh files on terminal.
 
 
 
-## Pipeline
+## 4. Pipeline
 
 1. Image Loading
 2. Grayscaling & SIFT(OpenCV) 
@@ -62,7 +67,7 @@ unzip demo_sh.zip and run demo.sh files on terminal.
 
 
 
-## Reference
+## 5. References
 
 ### code
 
@@ -82,7 +87,7 @@ thanks.
 
 
 
-## Author
+## 6. Author
 
 Dae-Young Song
 
