@@ -37,6 +37,8 @@ opencv-contrib-python == 4.4.0.46
 
 pillow == 8.0.1
 
+tqdm == 4.50.2
+
 argparse
 ```
 
@@ -81,11 +83,24 @@ argparse
 
 ## 5. Why do stitching recursively?
 
-If stitching is performed sequentially from the left, the picture is excessively oriented to one side. In that case, it becomes difficult to estimate the correct homography.
+- If stitching is performed sequentially from the left, the picture is excessively oriented to one side. In that case, it becomes difficult to estimate the correct homography.
+- Recursive Stitching:
 
 ![Recursive](./assets/Figure2.gif)
 
 
+
+
+
+- Sequential Stitching:
+
+  ![figure3](./assets/Figure3.gif)
+
+
+
+
+
+- In addition, if the size of the input image is too small, it is difficult to extract feature points, so that an incorrect homography may be estimated.
 
 
 
