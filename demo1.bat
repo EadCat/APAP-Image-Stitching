@@ -1,1 +1,0 @@
-python main.py --imgroot ./images/demo1 --imglist ./splits/demo1.txt --saveroot ./images/demo1/results --verbose True --warping_progress True --resize 500 400

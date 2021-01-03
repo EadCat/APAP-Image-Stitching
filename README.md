@@ -40,7 +40,7 @@ pillow == 8.0.1
 argparse
 ```
 
-Editor: PyCharm
+- Editor: PyCharm
 
 
 
@@ -50,13 +50,15 @@ Editor: PyCharm
 
 ### Windows User
 
-run demo.bat files on terminal.
+- unzip demo_bat.zip.
+- run demo.bat files on terminal.
 
 
 
 ### Linux User
 
-unzip demo_sh.zip and run demo.sh files on terminal.
+- unzip demo_sh.zip.
+- run demo.sh files on terminal.
 
 
 
