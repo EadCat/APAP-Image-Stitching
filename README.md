@@ -16,7 +16,7 @@ The research paper: https://cs.adelaide.edu.au/~tjchin/apap/
 
 **Zaragoza, Julio, et al. "As-projective-as-possible image stitching with moving DLT." *Proceedings of the IEEE conference on computer vision and pattern recognition*. 2013.**
 
-![Figure1](./assets/Figure1.jpg)
+![Figure1](./assets/Figure1.JPG)
 
 
 
