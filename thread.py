@@ -140,32 +140,42 @@ class Thread:
         gh = h_agent.global_homography(final_src, final_dst)
         final_w, final_h, offset_x, offset_y = final_size(img1, img2, gh)
 
-        # APAP
-        # ready meshgrid
-        mesh = get_mesh((final_w, final_h), mesh_size + 1)
-        vertices = get_vertice((final_w, final_h), mesh_size, (offset_x, offset_y))
+        if final_h > ori_h * 4. or final_w > ori_w * 4.:
+            print("Homography Estimation Failed.")
+            final_h = max(ori_h, dst_h)
+            final_w = max(ori_w, dst_w)
+            result = np.zeros(shape=(final_w, final_h), dtype=np.uint8)
+            img1 = cv2.resize(img1, dsize=(final_w, final_h))
+            img2 = cv2.resize(img2, dsize=(final_w, final_h))
+            result[:, :int(final_w/2), :] = img1[:, :int(final_w/2), :]
+            result[:, int(final_w/2):, :] = img2[:, int(final_w/2):, :]
+        else:
+            # APAP
+            # ready meshgrid
+            mesh = get_mesh((final_w, final_h), mesh_size + 1)
+            vertices = get_vertice((final_w, final_h), mesh_size, (offset_x, offset_y))
 
-        # As-Projective-As-Possible Stitcher instance definition
-        stitcher = Apap(0, [final_w, final_h], [offset_x, offset_y])
-        # local homography estimating
-        if self.opt.verbose: print(f'{self.n+1} image local homography Estimation...')
-        local_homography, local_weight = stitcher.local_homography(final_src, final_dst, vertices)
-        # local warping
-        if self.opt.verbose: print(f'{self.n+1} image local warping...')
-        warped_img = stitcher.local_warp(img1, local_homography, mesh, self.opt.warping_progress)
+            # As-Projective-As-Possible Stitcher instance definition
+            stitcher = Apap(0, [final_w, final_h], [offset_x, offset_y])
+            # local homography estimating
+            if self.opt.verbose: print(f'{self.n+1} image local homography Estimation...')
+            local_homography, local_weight = stitcher.local_homography(final_src, final_dst, vertices)
+            # local warping
+            if self.opt.verbose: print(f'{self.n+1} image local warping...')
+            warped_img = stitcher.local_warp(img1, local_homography, mesh, self.opt.warping_progress)
 
-        # another image pixel move
-        dst_temp = np.zeros_like(warped_img)
-        dst_temp[offset_y: dst_h + offset_y, offset_x: dst_w + offset_x, :] = img2
+            # another image pixel move
+            dst_temp = np.zeros_like(warped_img)
+            dst_temp[offset_y: dst_h + offset_y, offset_x: dst_w + offset_x, :] = img2
 
-        # Uniform(50:50) blending
-        if self.opt.verbose: print(f'{self.n+1} image blending...')
-        result = uniform_blend(warped_img, dst_temp)
+            # Uniform(50:50) blending
+            if self.opt.verbose: print(f'{self.n+1} image blending...')
+            result = uniform_blend(warped_img, dst_temp)
 
-        # Draw
-        if self.opt.match_print:
-            match_fig = draw_match(img1, img2, final_src, final_dst, self.opt.matching_line)
-            Image.fromarray(match_fig).show()
+            # Draw
+            if self.opt.match_print:
+                match_fig = draw_match(img1, img2, final_src, final_dst, self.opt.matching_line)
+                Image.fromarray(match_fig).show()
 
         # store
         return result
