@@ -63,7 +63,7 @@ argparse
 - run demo.sh files on terminal.
 
 
-You can give various types of options by referring to option.py, and the "demo"s are tutorial.
+You can give various types of options, check out "option.py". The "demo"s are tutorial.
 
 
 ## 4. Pipeline
