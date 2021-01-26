@@ -72,9 +72,9 @@ argparse
 2. Grayscaling & SIFT(OpenCV) 
 3. Brute-Force Matching
 4. RANSAC
-5. Estimating Global-Homography & Extracting Final size
-6. Estimating Local-Homography
-7. Local Image Warping
+5. Global-Homography Estimating & Final Size Extracting
+6. Local-Homography Estimating
+7. Superpixel Warping
 8. Uniform Blending (50:50)
 
 
