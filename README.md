@@ -90,6 +90,7 @@ You can give various types of options, check out "option.py". The "demo"s are tu
 ## 5. Why do stitching recursively?
 
 - If stitching is performed sequentially from the left, the picture is excessively oriented to one side. In that case, it becomes difficult to estimate the correct homography.
+- APAP doesn't consider <u>**perspective distortion**</u> of multiple image stitching.
 - Recursive Stitching:
 
 ![Recursive](./assets/Figure2.gif)
