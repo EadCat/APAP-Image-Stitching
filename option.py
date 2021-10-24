@@ -38,14 +38,14 @@ class Options:
                                  help='unit resizing (width, height)')
 
         # print settings
-        self.parser.add_argument('--print_n', type=bool, default=True, help='print <n>th process')
-        self.parser.add_argument('--verbose', type=bool, default=False, help='print detail process')
-        self.parser.add_argument('--warping_progress', type=bool, default=False, help='local-warping tqdm bar print')
-        self.parser.add_argument('--unit_time', type=bool, default=False, help='print time spent per image')
+        self.parser.add_argument('--print_n', type=str2bool, default=True, help='print <n>th process')
+        self.parser.add_argument('--verbose', type=str2bool, default=False, help='print detail process')
+        self.parser.add_argument('--warping_progress', type=str2bool, default=False, help='local-warping tqdm bar print')
+        self.parser.add_argument('--unit_time', type=str2bool, default=False, help='print time spent per image')
         self.parser.add_argument('--image_show', type=int, default=0, help='# of result images to be printed, -1 show all')
-        self.parser.add_argument('--match_print', type=bool, default=False, help='print feature matching image or not.')
+        self.parser.add_argument('--match_print', type=str2bool, default=False, help='print feature matching image or not.')
         self.parser.add_argument('--matching_line', type=int, default=15, help='# of matching lines on matching image')
-        self.parser.add_argument('--saveprint', type=bool, default=True, help='print save directory')
+        self.parser.add_argument('--saveprint', type=str2bool, default=True, help='print save directory')
 
         # save settings
         self.parser.add_argument('--saveroot', type=str, default=None, help='save or not, save folder directory')
