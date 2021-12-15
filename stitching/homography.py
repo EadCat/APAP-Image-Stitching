@@ -42,8 +42,8 @@ class Homography:
         std_pts = std_pts * std_pts * sample_n / (sample_n - 1)
         std_pts = np.sqrt(std_pts)
         std_x, std_y = std_pts
-        std_x = std_x + (std_y == 0)
-        std_y = std_x + (std_y == 0)
+        std_x = std_x + (std_x == 0)
+        std_y = std_y + (std_y == 0)
         norm_x = math.sqrt(2) / std_x
         norm_y = math.sqrt(2) / std_y
         T = np.array([[norm_x, 0, (-norm_x * mean_x)],
