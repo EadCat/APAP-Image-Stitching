@@ -12,13 +12,8 @@ class Apap(Homography):
         :param offset: The extent to which the image is stretched
         """
         super().__init__()
-
-        # debug code
-        self.gamma = 0.001
-        self.sigma = 8.5
-
-        # self.gamma = opt.gamma
-        # self.sigma = opt.sigma
+        self.gamma = opt.gamma
+        self.sigma = opt.sigma
         self.final_width, self.final_height = final_size
         self.offset_x, self.offset_y = offset
 
@@ -56,8 +51,7 @@ class Apap(Homography):
                 weight = np.exp(-(np.sqrt(dist[:, 0] ** 2 + dist[:, 1] ** 2) * inverse_sigma))
                 weight[weight < self.gamma] = self.gamma
                 local_weight[i, j, :] = weight
-                weight = np.concatenate([weight, weight])
-                A = weight.reshape(-1, 1) * aa.copy()
+                A = np.expand_dims(np.repeat(weight, 2), -1) * aa
                 W, U, V = cv2.SVDecomp(A)
                 h = V[-1, :]
                 h = h.reshape((3, 3))
@@ -66,7 +60,6 @@ class Apap(Homography):
                 h = h / h[2, 2]
                 local_homography_[i, j] = h
         return local_homography_, local_weight
-
 
     @staticmethod
     def warp_coordinate_estimate(pt, homography):

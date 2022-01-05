@@ -33,9 +33,16 @@ class Options:
         self.parser.add_argument('--mesh_size', type=int, default=100, help='# of square matrix (local-homography mesh)')
         self.parser.add_argument('--mask_dir', type=str, default=None, help='mask image directory for carving')
         self.parser.add_argument('--mask_root', type=str, default=None, help='mask image root directory')
-        self.parser.add_argument('--ransac_max', type=int, default=500, help='RANSAC MAX trial')
         self.parser.add_argument('--resize', type=int, default=(400, 300), nargs='+',
                                  help='unit resizing (width, height)')
+        self.parser.add_argument('--ransac_max', type=int, default=500, help='RANSAC MAX trial')
+        self.parser.add_argument('--ransac_thres', type=float, default=30, help='RANSAC distance')
+        self.parser.add_argument('--ransac_sample', type=int, default=12, help='RANSAC sampling number')
+        self.parser.add_argument('--optimal_ransac', type=str2bool, default=True, help='calculate the optimal try number of RANSAC')
+        self.parser.add_argument('--ransac_inlier_prob', type=float, default=0.5, help='inlier probability for RANSAC optimal calc.')
+        self.parser.add_argument('--sample_inlier', type=float, default=0.995, help='Assumption the probability of picking an inlier.')
+        self.parser.add_argument('--gamma', type=float, default=0.0001, help='Gamma parameter in the paper')
+        self.parser.add_argument('--sigma', type=float, default=8.5, help='Sigma parameter in the paper')
 
         # print settings
         self.parser.add_argument('--print_n', type=str2bool, default=True, help='print <n>th process')

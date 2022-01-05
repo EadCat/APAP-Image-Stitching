@@ -127,12 +127,13 @@ class Thread:
         if self.opt.verbose: print(f'{self.n + 1} image SIFT...')
         # SIFT & KNN BFMatching
         src_match, dst_match = sift.thread(img1, img2)
+        if self.opt.verbose: print(f"raw matching points: {len(src_match)}")
 
         # RANSAC
         if self.opt.verbose: print(f'{self.n + 1} image RANSAC...')
-        ransac = RANSAC()
+        ransac = RANSAC(self.opt)
         final_src, final_dst = ransac.thread(src_match, dst_match, self.opt.ransac_max)
-        if self.opt.verbose: print(f'final matchings points: {len(final_src)}')
+        if self.opt.verbose: print(f'final matching points: {len(final_src)}')
 
         # Global Homography
         if self.opt.verbose: print(f'{self.n + 1} image Global Homography Estimation...')
@@ -156,7 +157,7 @@ class Thread:
             vertices = get_vertice((final_w, final_h), mesh_size, (offset_x, offset_y))
 
             # As-Projective-As-Possible Stitcher instance definition
-            stitcher = Apap(0, [final_w, final_h], [offset_x, offset_y])
+            stitcher = Apap(self.opt, [final_w, final_h], [offset_x, offset_y])
             # local homography estimating
             if self.opt.verbose: print(f'{self.n+1} image local homography Estimation...')
             local_homography, local_weight = stitcher.local_homography(final_src, final_dst, vertices)

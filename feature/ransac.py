@@ -5,19 +5,27 @@ from stitching.homography import Homography
 
 
 class RANSAC:
-    def __init__(self, prob=0.995, inlier_p=0.5, threshold=10, m=6):
-        self.prob = prob
-        self.inlier_p = inlier_p
-        self.threshold = threshold
-        self.N = None
-        self.m = m  # # of sample for RANSAC algorithm
+    def __init__(self, opt):
+        self.opt = opt
+        self.prob = opt.sample_inlier
+        self.inlier_p = opt.ransac_inlier_prob
+        self.threshold = opt.ransac_thres
+        self.m = opt.ransac_sample  # # of sample for RANSAC algorithm
+        if opt.optimal_ransac:
+            self.N = min(self.get_N(), opt.ransac_max)  # optimal try number for RANSAC
+        else:
+            self.N = opt.ransac_max
+        if opt.verbose:
+            print(f"RANSAC trial optimization: {opt.optimal_ransac}")
+            print(f"The number of RANSAC trials: {self.N}")
 
     def get_N(self):
         """
         calculate how much RANSAC to try.
+        https://darkpgmr.tistory.com/61 -- (2)
         :return: # of Iteration
         """
-        return int(math.log(1 - self.prob) / math.log(1 - math.pow((1 - self.inlier_p), self.m) + 1e-8))
+        return int(round(math.log(1 - self.prob) / math.log(1 - math.pow((1 - self.inlier_p), self.m) + 1e-8)))
 
     @staticmethod
     def get_distance(src_point, dst_point, h):
@@ -47,18 +55,18 @@ class RANSAC:
         :param max_try: user setting
         :return: good matching points
         """
-        self.N = self.get_N()
         smax_inliers = []
         dmax_inliers = []
         arr_range = list(np.arange(len(src)))
         h_agent = Homography()
-        for i in range(min(self.N, max_try)):
+
+        for i in range(self.N):
             indices = random.sample(arr_range, self.m)
 
+            # shape: (self.m, 2) [x, y]
             chosen_src = src[indices, :]
             chosen_dst = dst[indices, :]
 
-            # shape: (self.m, 2)
             H = h_agent.global_homography(chosen_src, chosen_dst)
 
             src_inliers = []
