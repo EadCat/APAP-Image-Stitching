@@ -22,7 +22,7 @@ Official Matlab Code here: https://cs.adelaide.edu.au/~tjchin/apap/
 
 The research paper: https://cs.adelaide.edu.au/~tjchin/apap/files/mdlt.pdf
 
-**Zaragoza, Julio, et al. "As-projective-as-possible image stitching with moving DLT." *Proceedings of the IEEE conference on computer vision and pattern recognition*. 2013.**
+**Zaragoza, Julio, et al. "As-projective-as-possible image stitching with moving DLT." *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)*. 2013.**
 
 ![Figure1](./assets/Figure1.JPG)
 
