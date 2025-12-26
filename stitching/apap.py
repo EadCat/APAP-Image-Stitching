@@ -48,7 +48,7 @@ class Apap(Homography):
         for i in range(mesh_n):
             for j in range(pt_size):
                 dist = np.tile(vertices[i, j], (sample_n, 1)) - src_point
-                weight = np.exp(-(np.sqrt(dist[:, 0] ** 2 + dist[:, 1] ** 2) * inverse_sigma))
+                weight = np.exp(-((dist[:, 0]**2 + dist[:, 1]**2) * inverse_sigma))
                 weight[weight < self.gamma] = self.gamma
                 local_weight[i, j, :] = weight
                 A = np.expand_dims(np.repeat(weight, 2), -1) * aa
