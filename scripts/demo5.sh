@@ -1,0 +1,14 @@
+python main.py --img1 ./images/demo5/P1010517.JPG \
+--img2 ./images/demo5/P1010520.JPG \
+--saveroot ./images/demo5/result \
+--verbose True \
+--warping_progress True \
+--resize 1000 750 \
+--ransac_max 500 \
+--ransac_thres 35 \
+--ransac_sample 20 \
+--optimal_ransac True \
+--ransac_inlier_prob 0.5 \
+--sample_inlier 0.995 \
+--gamma 0.000045 \
+--sigma 7.7 "$@"

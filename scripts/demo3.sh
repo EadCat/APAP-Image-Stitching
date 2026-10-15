@@ -1,0 +1,15 @@
+python main.py --img1 ./images/demo3/prague1.jpg \
+--img2 ./images/demo3/prague2.jpg \
+--image_show 1 \
+--saveroot ./images/demo3/results \
+--verbose True \
+--warping_progress True \
+--resize 800 800 \
+--ransac_max 500 \
+--ransac_thres 10 \
+--ransac_sample 6 \
+--optimal_ransac True \
+--ransac_inlier_prob 0.5 \
+--sample_inlier 0.995 \
+--gamma 0.0015 \
+--sigma 8.5 "$@"

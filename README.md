@@ -58,18 +58,18 @@ argparse
 
 ### Windows User
 
-- unzip demo_bat.zip.
-- run demo.bat files on terminal.
+- run scripts/demo.bat files on terminal at the project root. (e.g. scripts\demo1.bat)
 
 
 
 ### Linux User
 
-- unzip demo_sh.zip.
-- run demo.sh files on terminal.
+- run scripts/demo.sh files on terminal at the project root. (e.g. bash scripts/demo1.sh)
 
 
 You can give various types of options, check out "option.py". The "demo"s are tutorials.
+
+Extra options are passed to main.py. (e.g. bash scripts/demo5.sh --mesh_size 50)
 
 
 ## 4. Pipeline

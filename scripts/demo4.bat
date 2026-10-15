@@ -1,0 +1,13 @@
+python main.py --imgs ./images/demo4/scottsdale01.jpg ./images/demo4/scottsdale02.jpg ./images/demo4/scottsdale03.jpg ^
+--saveroot ./images/demo4/results ^
+--verbose True ^
+--warping_progress True ^
+--resize 600 500 ^
+--ransac_max 500 ^
+--ransac_thres 10 ^
+--ransac_sample 12 ^
+--optimal_ransac True ^
+--ransac_inlier_prob 0.5 ^
+--sample_inlier 0.995 ^
+--gamma 0.0001 ^
+--sigma 8 %*

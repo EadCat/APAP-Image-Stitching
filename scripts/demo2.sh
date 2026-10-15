@@ -1,0 +1,13 @@
+python main.py --imgs ./images/demo2/boat01.jpg ./images/demo2/boat02.jpg ./images/demo2/boat03.jpg ./images/demo2/boat04.jpg ./images/demo2/boat05.jpg ./images/demo2/boat06.jpg \
+--saveroot ./images/demo2/results \
+--verbose True \
+--warping_progress True \
+--resize 600 500 \
+--ransac_max 500 \
+--ransac_thres 10 \
+--ransac_sample 6 \
+--optimal_ransac True \
+--ransac_inlier_prob 0.5 \
+--sample_inlier 0.995 \
+--gamma 0.0015 \
+--sigma 8.5 "$@"
