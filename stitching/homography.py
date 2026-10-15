@@ -104,8 +104,8 @@ class Homography:
         # x' = Ax, make transform matrix
         A = self.matrix_generate(sample_n, cf1, cf2)
 
-        # Singular Value Decomposition
-        W, U, V = cv2.SVDecomp(A, flags=cv2.SVD_FULL_UV)
+        # Singular Value Decomposition (full V is needed only when A has fewer rows than 9)
+        W, U, V = cv2.SVDecomp(A, flags=cv2.SVD_FULL_UV if sample_n < 5 else 0)
 
         # get global-homography
         h = V[-1, :]

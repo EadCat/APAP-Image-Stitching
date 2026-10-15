@@ -52,7 +52,7 @@ class Apap(Homography):
                 weight[weight < self.gamma] = self.gamma
                 local_weight[i, j, :] = weight
                 A = np.expand_dims(np.repeat(weight, 2), -1) * aa
-                W, U, V = cv2.SVDecomp(A, flags=cv2.SVD_FULL_UV)
+                W, U, V = cv2.SVDecomp(A)
                 h = V[-1, :]
                 h = h.reshape((3, 3))
                 h = np.linalg.inv(C2).dot(h).dot(C1)
@@ -68,19 +68,17 @@ class Apap(Homography):
         [ h11 h12 h13 ] [x]   [x']
         [ h21 h22 h23 ] [y] = [y']
         [ h31 h32 h33 ] [1]   [s']
-        :param pt: source point
-        :param homography: transfer relationship
-        :return: target point
+        :param pt: source points [n, 3]
+        :param homography: transfer relationship [n, 3, 3]
+        :return: target points [n, 3]
         """
-        target = np.matmul(homography, pt)
-        target /= target[2]
+        target = np.matmul(homography, pt[:, :, None])[:, :, 0]
+        target /= target[:, 2:]
         return target
 
     def local_warp(self, ori_img: np.ndarray, local_homography: np.ndarray, mesh: np.ndarray,
                    progress=False) -> np.ndarray:
         """
-        this method requires improvement with the numpy algorithm (because of speed)
-
         :param ori_img: original input image
         :param local_homography: [mesh_n, pt_size, 3, 3] local homographies np.ndarray
         :param mesh: [2, mesh_n+1]
@@ -90,17 +88,19 @@ class Apap(Homography):
         mesh_w, mesh_h = mesh
         ori_h, ori_w, _ = ori_img.shape
         warped_img = np.zeros([self.final_height, self.final_width, 3], dtype=np.uint8)
+        inverse_homography = np.linalg.inv(local_homography)
 
+        j = np.arange(self.final_width)
+        n = np.searchsorted(mesh_w, j, side='right')
         for i in tqdm(range(self.final_height)) if progress else range(self.final_height):
             m = np.where(i < mesh_h)[0][0]
-            for j in range(self.final_width):
-                n = np.where(j < mesh_w)[0][0]
-                homography = np.linalg.inv(local_homography[m-1, n-1, :])
-                x, y = j - self.offset_x, i - self.offset_y
-                source_pts = np.array([x, y, 1])
-                target_pts = self.warp_coordinate_estimate(source_pts, homography)
-                if 0 <= target_pts[0] < ori_w and 0 <= target_pts[1] < ori_h:
-                    warped_img[i, j, :] = ori_img[int(target_pts[1]), int(target_pts[0]), :]
+            homography = inverse_homography[m-1, n-1, :]
+            x, y = j - self.offset_x, np.full(self.final_width, i - self.offset_y)
+            source_pts = np.stack([x, y, np.ones(self.final_width)], axis=-1)
+            target_pts = self.warp_coordinate_estimate(source_pts, homography)
+            valid = (0 <= target_pts[:, 0]) & (target_pts[:, 0] < ori_w) & \
+                    (0 <= target_pts[:, 1]) & (target_pts[:, 1] < ori_h)
+            warped_img[i, valid, :] = ori_img[target_pts[valid, 1].astype(int), target_pts[valid, 0].astype(int), :]
 
         return warped_img
 

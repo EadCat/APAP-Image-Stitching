@@ -31,21 +31,20 @@ class RANSAC:
     def get_distance(src_point, dst_point, h):
         """
         The distance is calculated to estimate the optimal model.
-        :param src_point:
-        :param dst_point:
+        :param src_point: shape [sample_n, 2]
+        :param dst_point: shape [sample_n, 2]
         :param h:
-        :return:
+        :return: shape [sample_n]
         """
-        x1, y1 = src_point
-        x2, y2 = dst_point
-        pt_query = np.transpose(np.array([x1, y1, 1.]))
+        padding = np.ones([len(src_point), 1])
+        pt_query = np.transpose(np.hstack([src_point, padding]))
         projection = np.dot(h, pt_query)
         projection /= (projection[2] + 1e-8)
 
-        pt_train = np.transpose(np.array([x2, y2, 1.]))
+        pt_train = np.transpose(np.hstack([dst_point, padding]))
         error = pt_train - projection
 
-        return np.linalg.norm(error)
+        return np.linalg.norm(error, axis=0)
 
     def thread(self, src, dst, max_try=1000):
         """
@@ -69,14 +68,10 @@ class RANSAC:
 
             H = h_agent.global_homography(chosen_src, chosen_dst)
 
-            src_inliers = []
-            dst_inliers = []
+            dist = self.get_distance(src, dst, H)
+            src_inliers = src[dist < self.threshold]
+            dst_inliers = dst[dist < self.threshold]
 
-            for s, d in zip(src, dst):
-                dist = self.get_distance(s, d, H)
-                if dist < self.threshold:
-                    src_inliers.append(s)
-                    dst_inliers.append(d)
             if len(src_inliers) > len(smax_inliers):
                 smax_inliers = src_inliers
                 dmax_inliers = dst_inliers
