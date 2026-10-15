@@ -3,7 +3,7 @@ from feature.sift import SIFTMatcher
 from feature.ransac import RANSAC
 from stitching.homography import Homography, final_size
 from stitching.apap import Apap
-from stitching.blend import uniform_blend
+from stitching.blend import uniform_blend, multiband_blend
 from utils.mesh import get_mesh, get_vertice
 from utils.draw import *
 from utils.recursive import RecursiveDivider
@@ -172,9 +172,12 @@ class Thread:
             dst_temp = np.zeros_like(warped_img)
             dst_temp[offset_y: dst_h + offset_y, offset_x: dst_w + offset_x, :] = img2
 
-            # Uniform(50:50) blending
+            # Uniform(50:50) or Multi-band blending
             if self.opt.verbose: print(f'{self.n+1} image blending...')
-            result = uniform_blend(warped_img, dst_temp)
+            if self.opt.multiband:
+                result = multiband_blend(warped_img, dst_temp)
+            else:
+                result = uniform_blend(warped_img, dst_temp)
 
             # Draw
             if self.opt.match_print:
