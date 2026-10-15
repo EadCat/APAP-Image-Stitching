@@ -23,8 +23,8 @@ def get_vertice(size, mesh_size, offsets):
     :return:
     """
     w, h = size
-    x = np.linspace(0, w, mesh_size)
-    y = np.linspace(0, h, mesh_size)
+    x = np.linspace(0, w, mesh_size + 1)[:-1]
+    y = np.linspace(0, h, mesh_size + 1)[:-1]
     next_x = x + w / (mesh_size * 2)
     next_y = y + h / (mesh_size * 2)
     next_x, next_y = np.meshgrid(next_x, next_y)

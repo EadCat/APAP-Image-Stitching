@@ -41,18 +41,18 @@ class Apap(Homography):
         cf2 = self.point_normalize(nf2, C2)
 
         inverse_sigma = 1. / (self.sigma ** 2)
-        local_homography_ = np.zeros([mesh_n, pt_size, 3, 3], dtype=np.float)
+        local_homography_ = np.zeros([mesh_n, pt_size, 3, 3], dtype=np.float64)
         local_weight = np.zeros([mesh_n, pt_size, sample_n])
         aa = self.matrix_generate(sample_n, cf1, cf2)  # initiate A
 
         for i in range(mesh_n):
             for j in range(pt_size):
-                dist = np.tile(vertices[i, j], (sample_n, 1)) - src_point
+                dist = np.tile(vertices[i, j], (sample_n, 1)) - dst_point
                 weight = np.exp(-(np.sqrt(dist[:, 0] ** 2 + dist[:, 1] ** 2) * inverse_sigma))
                 weight[weight < self.gamma] = self.gamma
                 local_weight[i, j, :] = weight
                 A = np.expand_dims(np.repeat(weight, 2), -1) * aa
-                W, U, V = cv2.SVDecomp(A)
+                W, U, V = cv2.SVDecomp(A, flags=cv2.SVD_FULL_UV)
                 h = V[-1, :]
                 h = h.reshape((3, 3))
                 h = np.linalg.inv(C2).dot(h).dot(C1)
@@ -99,7 +99,7 @@ class Apap(Homography):
                 x, y = j - self.offset_x, i - self.offset_y
                 source_pts = np.array([x, y, 1])
                 target_pts = self.warp_coordinate_estimate(source_pts, homography)
-                if 0 < target_pts[0] < ori_w and 0 < target_pts[1] < ori_h:
+                if 0 <= target_pts[0] < ori_w and 0 <= target_pts[1] < ori_h:
                     warped_img[i, j, :] = ori_img[int(target_pts[1]), int(target_pts[0]), :]
 
         return warped_img

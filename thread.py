@@ -11,6 +11,8 @@ from utils.recursive import RecursiveDivider
 # basic libraries
 import time
 import os
+import cv2
+import numpy as np
 from PIL import Image
 
 
@@ -44,14 +46,15 @@ class Thread:
             assert src is not None, print(f'No such directory exists:{imgdir[0]}')
             src = src[:, :, ::-1]
             src = cv2.resize(src, dsize=(self.unit_w, self.unit_h))
-            try:
-                # process stitching
-                dst = cv2.imread(imgdir[1], cv2.IMREAD_COLOR)[:, :, ::-1]
-                dst = cv2.resize(dst, dsize=(self.unit_w, self.unit_h))
-                return self.thread(src, dst)
-            except:
+            if len(imgdir) == 1:
                 # just return
                 return src
+            # process stitching
+            dst = cv2.imread(imgdir[1], cv2.IMREAD_COLOR)
+            assert dst is not None, print(f'No such directory exists:{imgdir[1]}')
+            dst = dst[:, :, ::-1]
+            dst = cv2.resize(dst, dsize=(self.unit_w, self.unit_h))
+            return self.thread(src, dst)
 
     def process(self, imgdir, mask):
         unit_start = time.perf_counter()
@@ -109,10 +112,10 @@ class Thread:
     def call_mask(self):
         if self.opt.mask_dir is None:
             return None
-        try:  # only one mask
-            mask = self.opt.mask_dir
-        except:  # mask text file
+        if self.opt.mask_dir.endswith('.txt'):  # mask text file
             mask = self.call_dataset(self.opt.mask_dir, root=self.opt.mask_root)
+        else:  # only one mask
+            mask = self.opt.mask_dir
         return mask
 
     def thread(self, src, dst):
@@ -145,7 +148,7 @@ class Thread:
             print("Homography Estimation Failed.")
             final_h = max(ori_h, dst_h)
             final_w = max(ori_w, dst_w)
-            result = np.zeros(shape=(final_w, final_h), dtype=np.uint8)
+            result = np.zeros(shape=(final_h, final_w, 3), dtype=np.uint8)
             img1 = cv2.resize(img1, dsize=(final_w, final_h))
             img2 = cv2.resize(img2, dsize=(final_w, final_h))
             result[:, :int(final_w/2), :] = img1[:, :int(final_w/2), :]
@@ -198,6 +201,7 @@ class Thread:
         elif None not in [self.opt.imgroot, self.opt.imglist]:
             datalist = self.call_dataset(self.opt.imglist, root=self.opt.imgroot)
             for data in datalist:
+                divider.initial = True
                 data = divider.list_divide(data)
                 self.process(data, mask)
                 # self.process(data, mask)

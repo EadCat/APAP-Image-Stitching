@@ -90,7 +90,7 @@ class Matcher:
 class SIFTMatcher(Matcher):
     def __init__(self):
         super().__init__()
-        self.agent = cv2.xfeatures2d.SIFT_create()
+        self.agent = cv2.SIFT_create()
 
     def detect(self, img):
         # return (kp, desc)

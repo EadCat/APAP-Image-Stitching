@@ -39,8 +39,8 @@ class Options:
         self.parser.add_argument('--ransac_thres', type=float, default=30, help='RANSAC distance')
         self.parser.add_argument('--ransac_sample', type=int, default=12, help='RANSAC sampling number')
         self.parser.add_argument('--optimal_ransac', type=str2bool, default=True, help='calculate the optimal try number of RANSAC')
-        self.parser.add_argument('--ransac_inlier_prob', type=float, default=0.5, help='inlier probability for RANSAC optimal calc.')
-        self.parser.add_argument('--sample_inlier', type=float, default=0.995, help='Assumption the probability of picking an inlier.')
+        self.parser.add_argument('--ransac_inlier_prob', type=float, default=0.5, help='inlier ratio for RANSAC optimal calc.')
+        self.parser.add_argument('--sample_inlier', type=float, default=0.995, help='success probability for RANSAC optimal calc.')
         self.parser.add_argument('--gamma', type=float, default=0.0001, help='Gamma parameter in the paper')
         self.parser.add_argument('--sigma', type=float, default=8.5, help='Sigma parameter in the paper')
 

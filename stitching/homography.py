@@ -16,7 +16,7 @@ class Homography:
         sample_n, _ = point.shape
         origin_point = copy.deepcopy(point)
         # np.ones(6) [1, 1, 1, 1, 1, 1]
-        padding = np.ones(sample_n, dtype=np.float)
+        padding = np.ones(sample_n, dtype=np.float64)
         c = np.mean(point, axis=0)
         pt = point - c
         pt_square = np.square(pt)
@@ -26,7 +26,7 @@ class Homography:
         # https://www.programmersought.com/article/9488862074/
         t = np.array([[scale, 0, -scale * c[0]],
                       [0, scale, -scale * c[1]],
-                      [0, 0, 1]], dtype=np.float)
+                      [0, 0, 1]], dtype=np.float64)
         origin_point = np.column_stack((origin_point, padding))
         new_point = t.dot(origin_point.T)
         new_point = new_point.T[:, :2]
@@ -48,7 +48,7 @@ class Homography:
         norm_y = math.sqrt(2) / std_y
         T = np.array([[norm_x, 0, (-norm_x * mean_x)],
                       [0, norm_y, (-norm_y * mean_y)],
-                      [0, 0, 1]], dtype=np.float)
+                      [0, 0, 1]], dtype=np.float64)
 
         return T
 
@@ -65,7 +65,7 @@ class Homography:
 
     @staticmethod
     def matrix_generate(sample_n, cf1, cf2):
-        A = np.zeros([sample_n * 2, 9], dtype=np.float)
+        A = np.zeros([sample_n * 2, 9], dtype=np.float64)
         for k in range(sample_n):
             A[2 * k, 0] = cf1[k, 0]
             A[2 * k, 1] = cf1[k, 1]
@@ -105,7 +105,7 @@ class Homography:
         A = self.matrix_generate(sample_n, cf1, cf2)
 
         # Singular Value Decomposition
-        W, U, V = cv2.SVDecomp(A)
+        W, U, V = cv2.SVDecomp(A, flags=cv2.SVD_FULL_UV)
 
         # get global-homography
         h = V[-1, :]
@@ -166,7 +166,7 @@ def final_size(src_img, dst_img, project_H):
         x, y = vec[0] / vec[2], vec[1] / vec[2]
         corners.append([x, y])
 
-    corners = np.array(corners).astype(np.int)
+    corners = np.array(corners).astype(int)
 
     h, w, c = dst_img.shape
 

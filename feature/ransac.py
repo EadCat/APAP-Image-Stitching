@@ -25,7 +25,7 @@ class RANSAC:
         https://darkpgmr.tistory.com/61 -- (2)
         :return: # of Iteration
         """
-        return int(round(math.log(1 - self.prob) / math.log(1 - math.pow((1 - self.inlier_p), self.m) + 1e-8)))
+        return int(round(math.log(1 - self.prob) / math.log(1 - math.pow(self.inlier_p, self.m) + 1e-8)))
 
     @staticmethod
     def get_distance(src_point, dst_point, h):

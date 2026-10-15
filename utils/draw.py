@@ -26,8 +26,8 @@ def draw_match(src, dst, src_point, dst_point, number=20):
     :param number: # of matching line
     :return: Drawn image
     """
-    src_point = src_point.astype(np.int)
-    dst_point = dst_point.astype(np.int)
+    src_point = src_point.astype(int)
+    dst_point = dst_point.astype(int)
     src_h, src_w, _ = src.shape
     dst_h, dst_w, _ = dst.shape
     final_height = max(src_h, dst_h)
