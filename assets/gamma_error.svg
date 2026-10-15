@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="900" height="500" rx="10" fill="#fcfcfb"/>
+<text x="28" y="40" font-size="19" font-weight="600" fill="#0b0b0b">Alignment error vs. gamma</text>
+<text x="28" y="64" font-size="13" fill="#52514e">error on matches not used for fitting, divided by the error of one global homography · lower is better</text>
+<rect x="392.3" y="100" width="33.7" height="310" fill="#eef1f6"/>
+<text x="409.1" y="92" font-size="11.5" fill="#52514e" text-anchor="middle">recommended</text>
+<line x1="90" x2="650" y1="410.0" y2="410.0" stroke="#e6e5e0"/>
+<text x="80" y="414.0" font-size="12" fill="#52514e" text-anchor="end">0.2</text>
+<line x1="90" x2="650" y1="348.0" y2="348.0" stroke="#e6e5e0"/>
+<text x="80" y="352.0" font-size="12" fill="#52514e" text-anchor="end">0.4</text>
+<line x1="90" x2="650" y1="286.0" y2="286.0" stroke="#e6e5e0"/>
+<text x="80" y="290.0" font-size="12" fill="#52514e" text-anchor="end">0.6</text>
+<line x1="90" x2="650" y1="224.0" y2="224.0" stroke="#e6e5e0"/>
+<text x="80" y="228.0" font-size="12" fill="#52514e" text-anchor="end">0.8</text>
+<line x1="90" x2="650" y1="162.0" y2="162.0" stroke="#e6e5e0"/>
+<text x="80" y="166.0" font-size="12" fill="#52514e" text-anchor="end">1.0</text>
+<line x1="90" x2="650" y1="100.0" y2="100.0" stroke="#e6e5e0"/>
+<text x="80" y="104.0" font-size="12" fill="#52514e" text-anchor="end">1.2</text>
+<text transform="translate(30 255.0) rotate(-90)" font-size="13" fill="#52514e" text-anchor="middle">error ratio (APAP / global)</text>
+<line x1="90" x2="650" y1="162.0" y2="162.0" stroke="#52514e" stroke-dasharray="5 4"/>
+<line x1="90.0" x2="90.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="90.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">1e-5</text>
+<line x1="202.0" x2="202.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="202.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.0001</text>
+<line x1="314.0" x2="314.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="314.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.001</text>
+<line x1="426.0" x2="426.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="426.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.01</text>
+<line x1="538.0" x2="538.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="538.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.1</text>
+<line x1="650.0" x2="650.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="650.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">1</text>
+<line x1="90" x2="650" y1="410" y2="410" stroke="#52514e"/>
+<text x="370.0" y="456" font-size="13" fill="#52514e" text-anchor="middle">gamma (log scale)</text>
+<polyline points="90.0,143.3 202.0,143.3 280.3,143.3 333.7,143.3 392.3,143.3 426.0,143.4 504.3,147.9 538.0,152.2 650.0,162.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"><title>bridge</title></polyline>
+<polyline points="90.0,211.8 202.0,211.8 280.3,211.8 333.7,211.8 392.3,211.8 426.0,211.8 504.3,211.9 538.0,211.4 650.0,162.0" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"><title>uttower</title></polyline>
+<polyline points="90.0,186.5 202.0,186.5 280.3,186.5 333.7,186.5 392.3,186.5 426.0,186.5 504.3,185.7 538.0,183.3 650.0,162.0" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"><title>hill</title></polyline>
+<polyline points="90.0,324.0 202.0,324.0 280.3,324.0 333.7,324.0 392.3,324.0 426.0,323.9 504.3,317.3 538.0,307.8 650.0,162.0" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round"><title>ledge</title></polyline>
+<polyline points="90.0,158.5 202.0,158.5 280.3,158.5 333.7,158.5 392.3,158.5 426.0,158.5 504.3,158.5 538.0,158.9 650.0,162.0" fill="none" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"><title>pier</title></polyline>
+<polyline points="90.0,178.1 202.0,178.1 280.3,178.1 333.7,178.1 392.3,178.2 426.0,178.2 504.3,177.2 538.0,176.2 650.0,162.0" fill="none" stroke="#008300" stroke-width="2" stroke-linejoin="round"><title>prague</title></polyline>
+<polyline points="90.0,366.7 202.0,366.7 280.3,366.7 333.7,366.7 392.3,366.9 426.0,366.9 504.3,361.0 538.0,349.4 650.0,162.0" fill="none" stroke="#4a3aa7" stroke-width="2" stroke-linejoin="round"><title>railtracks</title></polyline>
+<polyline points="90.0,224.1 202.0,224.1 280.3,224.1 333.7,224.1 392.3,224.1 426.0,224.1 504.3,222.8 538.0,219.9 650.0,162.0" fill="none" stroke="#0b0b0b" stroke-width="2.5" stroke-dasharray="7 4"/>
+<circle cx="90.0" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 1e-05: 0.800</title></circle>
+<circle cx="202.0" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0001: 0.800</title></circle>
+<circle cx="280.3" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0005: 0.800</title></circle>
+<circle cx="333.7" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0015: 0.800</title></circle>
+<circle cx="392.3" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.005: 0.800</title></circle>
+<circle cx="426.0" cy="224.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.01: 0.800</title></circle>
+<circle cx="504.3" cy="222.8" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.05: 0.804</title></circle>
+<circle cx="538.0" cy="219.9" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.1: 0.813</title></circle>
+<circle cx="650.0" cy="162.0" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 1: 1.000</title></circle>
+<text x="720" y="104" font-size="12.5" font-weight="600" fill="#0b0b0b">Image pair</text>
+<line x1="720" x2="742" y1="124" y2="124" stroke="#2a78d6" stroke-width="3"/>
+<text x="750" y="128" font-size="12.5" fill="#0b0b0b">bridge</text>
+<line x1="720" x2="742" y1="146" y2="146" stroke="#eb6834" stroke-width="3"/>
+<text x="750" y="150" font-size="12.5" fill="#0b0b0b">uttower</text>
+<line x1="720" x2="742" y1="168" y2="168" stroke="#1baf7a" stroke-width="3"/>
+<text x="750" y="172" font-size="12.5" fill="#0b0b0b">hill</text>
+<line x1="720" x2="742" y1="190" y2="190" stroke="#eda100" stroke-width="3"/>
+<text x="750" y="194" font-size="12.5" fill="#0b0b0b">ledge</text>
+<line x1="720" x2="742" y1="212" y2="212" stroke="#e87ba4" stroke-width="3"/>
+<text x="750" y="216" font-size="12.5" fill="#0b0b0b">pier</text>
+<line x1="720" x2="742" y1="234" y2="234" stroke="#008300" stroke-width="3"/>
+<text x="750" y="238" font-size="12.5" fill="#0b0b0b">prague</text>
+<line x1="720" x2="742" y1="256" y2="256" stroke="#4a3aa7" stroke-width="3"/>
+<text x="750" y="260" font-size="12.5" fill="#0b0b0b">railtracks</text>
+<line x1="720" x2="742" y1="286" y2="286" stroke="#0b0b0b" stroke-width="2.5" stroke-dasharray="7 4"/>
+<text x="750" y="290" font-size="12.5" font-weight="600" fill="#0b0b0b">mean</text>
+<line x1="720" x2="742" y1="308" y2="308" stroke="#52514e" stroke-dasharray="5 4"/>
+<text x="750" y="312" font-size="12.5" fill="#0b0b0b">global (1.0)</text>
+<text x="28" y="484" font-size="12" fill="#52514e">RANSAC inliers are split in half at random: one half fits the warp, the other half measures the error (mean of 3 splits, sigma 8.5).</text>
+</svg>

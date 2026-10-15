@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="900" height="500" rx="10" fill="#fcfcfb"/>
+<text x="28" y="40" font-size="19" font-weight="600" fill="#0b0b0b">Bending in regions without feature points vs. gamma</text>
+<text x="28" y="64" font-size="13" fill="#52514e">how far the local warp moves pixels away from one global homography · 0 = straight like the global warp</text>
+<rect x="467.9" y="100" width="42.1" height="310" fill="#eef1f6"/>
+<text x="488.9" y="92" font-size="11.5" fill="#52514e" text-anchor="middle">recommended</text>
+<line x1="90" x2="650" y1="410.0" y2="410.0" stroke="#e6e5e0"/>
+<text x="80" y="414.0" font-size="12" fill="#52514e" text-anchor="end">0</text>
+<line x1="90" x2="650" y1="365.7" y2="365.7" stroke="#e6e5e0"/>
+<text x="80" y="369.7" font-size="12" fill="#52514e" text-anchor="end">2</text>
+<line x1="90" x2="650" y1="321.4" y2="321.4" stroke="#e6e5e0"/>
+<text x="80" y="325.4" font-size="12" fill="#52514e" text-anchor="end">4</text>
+<line x1="90" x2="650" y1="277.1" y2="277.1" stroke="#e6e5e0"/>
+<text x="80" y="281.1" font-size="12" fill="#52514e" text-anchor="end">6</text>
+<line x1="90" x2="650" y1="232.9" y2="232.9" stroke="#e6e5e0"/>
+<text x="80" y="236.9" font-size="12" fill="#52514e" text-anchor="end">8</text>
+<line x1="90" x2="650" y1="188.6" y2="188.6" stroke="#e6e5e0"/>
+<text x="80" y="192.6" font-size="12" fill="#52514e" text-anchor="end">10</text>
+<line x1="90" x2="650" y1="144.3" y2="144.3" stroke="#e6e5e0"/>
+<text x="80" y="148.3" font-size="12" fill="#52514e" text-anchor="end">12</text>
+<line x1="90" x2="650" y1="100.0" y2="100.0" stroke="#e6e5e0"/>
+<text x="80" y="104.0" font-size="12" fill="#52514e" text-anchor="end">14</text>
+<text transform="translate(30 255.0) rotate(-90)" font-size="13" fill="#52514e" text-anchor="middle">shift from global (px)</text>
+<line x1="90.0" x2="90.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="90.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">1e-5</text>
+<line x1="230.0" x2="230.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="230.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.0001</text>
+<line x1="370.0" x2="370.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="370.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.001</text>
+<line x1="510.0" x2="510.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="510.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.01</text>
+<line x1="650.0" x2="650.0" y1="410" y2="415" stroke="#52514e"/>
+<text x="650.0" y="432" font-size="12" fill="#52514e" text-anchor="middle">0.1</text>
+<line x1="90" x2="650" y1="410" y2="410" stroke="#52514e"/>
+<text x="370.0" y="456" font-size="13" fill="#52514e" text-anchor="middle">gamma (log scale)</text>
+<polyline points="90.0,381.1 230.0,381.1 327.9,381.3 394.7,383.5 467.9,393.6 510.0,399.8 607.9,409.3 650.0,409.4" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"><title>uttower</title></polyline>
+<polyline points="90.0,384.6 230.0,384.6 327.9,384.8 394.7,386.8 467.9,394.8 510.0,401.3 607.9,409.9 650.0,409.9" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"><title>hill</title></polyline>
+<polyline points="90.0,312.0 230.0,312.0 327.9,319.7 394.7,353.7 467.9,371.2 510.0,390.2 607.9,404.9 650.0,405.0" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round"><title>ledge</title></polyline>
+<polyline points="90.0,339.4 230.0,339.4 327.9,339.4 394.7,342.0 467.9,363.4 510.0,383.7 607.9,408.5 650.0,408.6" fill="none" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"><title>pier</title></polyline>
+<polyline points="90.0,383.7 230.0,388.3 327.9,396.9 394.7,402.6 467.9,407.3 510.0,408.8 607.9,409.9 650.0,409.9" fill="none" stroke="#008300" stroke-width="2" stroke-linejoin="round"><title>prague</title></polyline>
+<polyline points="90.0,113.5 230.0,175.2 327.9,251.7 394.7,290.3 467.9,312.1 510.0,324.5 607.9,338.8 650.0,338.7" fill="none" stroke="#4a3aa7" stroke-width="2" stroke-linejoin="round"><title>railtracks</title></polyline>
+<polyline points="90.0,319.1 230.0,330.1 327.9,345.6 394.7,359.8 467.9,373.7 510.0,384.7 607.9,396.9 650.0,396.9" fill="none" stroke="#0b0b0b" stroke-width="2.5" stroke-dasharray="7 4"/>
+<circle cx="90.0" cy="319.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 1e-05: 4.107</title></circle>
+<circle cx="230.0" cy="330.1" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0001: 3.608</title></circle>
+<circle cx="327.9" cy="345.6" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0005: 2.908</title></circle>
+<circle cx="394.7" cy="359.8" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.0015: 2.266</title></circle>
+<circle cx="467.9" cy="373.7" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.005: 1.638</title></circle>
+<circle cx="510.0" cy="384.7" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.01: 1.143</title></circle>
+<circle cx="607.9" cy="396.9" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.05: 0.593</title></circle>
+<circle cx="650.0" cy="396.9" r="4" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"><title>mean, gamma 0.1: 0.591</title></circle>
+<text x="720" y="104" font-size="12.5" font-weight="600" fill="#0b0b0b">Image pair</text>
+<line x1="720" x2="742" y1="124" y2="124" stroke="#eb6834" stroke-width="3"/>
+<text x="750" y="128" font-size="12.5" fill="#0b0b0b">uttower</text>
+<line x1="720" x2="742" y1="146" y2="146" stroke="#1baf7a" stroke-width="3"/>
+<text x="750" y="150" font-size="12.5" fill="#0b0b0b">hill</text>
+<line x1="720" x2="742" y1="168" y2="168" stroke="#eda100" stroke-width="3"/>
+<text x="750" y="172" font-size="12.5" fill="#0b0b0b">ledge</text>
+<line x1="720" x2="742" y1="190" y2="190" stroke="#e87ba4" stroke-width="3"/>
+<text x="750" y="194" font-size="12.5" fill="#0b0b0b">pier</text>
+<line x1="720" x2="742" y1="212" y2="212" stroke="#008300" stroke-width="3"/>
+<text x="750" y="216" font-size="12.5" fill="#0b0b0b">prague</text>
+<line x1="720" x2="742" y1="234" y2="234" stroke="#4a3aa7" stroke-width="3"/>
+<text x="750" y="238" font-size="12.5" fill="#0b0b0b">railtracks</text>
+<line x1="720" x2="742" y1="264" y2="264" stroke="#0b0b0b" stroke-width="2.5" stroke-dasharray="7 4"/>
+<text x="750" y="268" font-size="12.5" font-weight="600" fill="#0b0b0b">mean</text>
+<text x="28" y="484" font-size="12" fill="#52514e">Measured on mesh cells farther than 200 px from every feature point (bridge has none, sigma 8.5).</text>
+</svg>
