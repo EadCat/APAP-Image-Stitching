@@ -47,7 +47,7 @@ class Apap(Homography):
 
         for i in range(mesh_n):
             for j in range(pt_size):
-                dist = np.tile(vertices[i, j], (sample_n, 1)) - dst_point
+                dist = np.tile(vertices[i, j], (sample_n, 1)) - src_point
                 weight = np.exp(-(np.sqrt(dist[:, 0] ** 2 + dist[:, 1] ** 2) * inverse_sigma))
                 weight[weight < self.gamma] = self.gamma
                 local_weight[i, j, :] = weight
@@ -88,19 +88,18 @@ class Apap(Homography):
         mesh_w, mesh_h = mesh
         ori_h, ori_w, _ = ori_img.shape
         warped_img = np.zeros([self.final_height, self.final_width, 3], dtype=np.uint8)
-        inverse_homography = np.linalg.inv(local_homography)
 
         j = np.arange(self.final_width)
         n = np.searchsorted(mesh_w, j, side='right')
         for i in tqdm(range(self.final_height)) if progress else range(self.final_height):
             m = np.where(i < mesh_h)[0][0]
-            homography = inverse_homography[m-1, n-1, :]
+            homography = local_homography[m-1, n-1, :]
             x, y = j - self.offset_x, np.full(self.final_width, i - self.offset_y)
             source_pts = np.stack([x, y, np.ones(self.final_width)], axis=-1)
-            target_pts = self.warp_coordinate_estimate(source_pts, homography)
+            target_pts = np.round(self.warp_coordinate_estimate(source_pts, homography)).astype(int)
             valid = (0 <= target_pts[:, 0]) & (target_pts[:, 0] < ori_w) & \
                     (0 <= target_pts[:, 1]) & (target_pts[:, 1] < ori_h)
-            warped_img[i, valid, :] = ori_img[target_pts[valid, 1].astype(int), target_pts[valid, 0].astype(int), :]
+            warped_img[i, valid, :] = ori_img[target_pts[valid, 1], target_pts[valid, 0], :]
 
         return warped_img
 

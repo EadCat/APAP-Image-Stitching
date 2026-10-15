@@ -163,7 +163,7 @@ class Thread:
             stitcher = Apap(self.opt, [final_w, final_h], [offset_x, offset_y])
             # local homography estimating
             if self.opt.verbose: print(f'{self.n+1} image local homography Estimation...')
-            local_homography, local_weight = stitcher.local_homography(final_src, final_dst, vertices)
+            local_homography, local_weight = stitcher.local_homography(final_dst, final_src, vertices)
             # local warping
             if self.opt.verbose: print(f'{self.n+1} image local warping...')
             warped_img = stitcher.local_warp(img1, local_homography, mesh, self.opt.warping_progress)
