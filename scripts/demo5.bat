@@ -1,6 +1,6 @@
 python main.py --img1 ./images/demo5/P1010517.jpg ^
 --img2 ./images/demo5/P1010520.jpg ^
---saveroot ./images/demo5/result ^
+--saveroot ./results/demo5 ^
 --verbose True ^
 --warping_progress True ^
 --resize 1000 750 ^
