@@ -95,6 +95,9 @@ Multi-band blending ([Burt & Adelson, 1983](https://doi.org/10.1145/245.247)) hi
 
 Moving DLT weights each feature point by `max(exp(-d / sigma^2), gamma)`, where `d` is the distance from a mesh cell.
 
+The paper writes `exp(-d^2 / sigma^2)`, but `d` is measured in pixels, so with sigma 8.5 the weights vanish within about 18 px and most cells end up with the global homography.
+The official code uses `d` instead of `d^2`, which spreads the weights over about `sigma^2` (= 72) px, and this implementation follows it.
+
 - `sigma`: how far a feature point affects the local homography.
 - `gamma`: the lower bound of the weights. Cells far from feature points fall back to the global homography as gamma grows.
 
