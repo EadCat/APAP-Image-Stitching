@@ -9,5 +9,5 @@ python main.py --imgs ./images/demo4/scottsdale01.jpg ./images/demo4/scottsdale0
 --optimal_ransac True ^
 --ransac_inlier_prob 0.5 ^
 --sample_inlier 0.995 ^
---gamma 0.0001 ^
---sigma 8 %*
+--gamma 0.01 ^
+--sigma 8.5 %*

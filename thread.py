@@ -34,6 +34,7 @@ class Thread:
         self.opt = opt
         self.n = 0  # line number of txt file
         self.unit_w, self.unit_h = self.opt.resize
+        self.param_tables = []  # (sse, count) of each stitching stage, collected by tune.py
 
     def recursive(self, imgdir):
         if isinstance(imgdir, list):
@@ -161,6 +162,13 @@ class Thread:
 
             # As-Projective-As-Possible Stitcher instance definition
             stitcher = Apap(self.opt, [final_w, final_h], [offset_x, offset_y])
+            # sigma & gamma searching
+            if self.opt.auto_param:
+                sse, count = stitcher.param_error(final_dst, final_src)
+                if count:
+                    stitcher.sigma, stitcher.gamma = Apap.param_select(sse, count)
+                    self.param_tables.append((sse, count))
+                if self.opt.verbose: print(f'sigma: {stitcher.sigma}, gamma: {stitcher.gamma}')
             # local homography estimating
             if self.opt.verbose: print(f'{self.n+1} image local homography Estimation...')
             local_homography, local_weight = stitcher.local_homography(final_dst, final_src, vertices)

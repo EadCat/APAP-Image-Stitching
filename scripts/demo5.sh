@@ -10,5 +10,5 @@ python main.py --img1 ./images/demo5/P1010517.JPG \
 --optimal_ransac True \
 --ransac_inlier_prob 0.5 \
 --sample_inlier 0.995 \
---gamma 0.000045 \
---sigma 7.7 "$@"
+--gamma 0.01 \
+--sigma 8.5 "$@"

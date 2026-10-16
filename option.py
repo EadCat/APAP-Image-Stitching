@@ -41,9 +41,10 @@ class Options:
         self.parser.add_argument('--optimal_ransac', type=str2bool, default=True, help='calculate the optimal try number of RANSAC')
         self.parser.add_argument('--ransac_inlier_prob', type=float, default=0.5, help='inlier ratio for RANSAC optimal calc.')
         self.parser.add_argument('--sample_inlier', type=float, default=0.995, help='success probability for RANSAC optimal calc.')
-        self.parser.add_argument('--gamma', type=float, default=0.0001, help='Gamma parameter in the paper')
+        self.parser.add_argument('--gamma', type=float, default=0.01, help='Gamma parameter in the paper')
         self.parser.add_argument('--sigma', type=float, default=8.5, help='Sigma parameter in the paper')
         self.parser.add_argument('--multiband', type=str2bool, default=False, help='multi-band blending instead of uniform blending')
+        self.parser.add_argument('--auto_param', type=str2bool, default=False, help='choose sigma and gamma for each stitching by cross-validation')
 
         # print settings
         self.parser.add_argument('--print_n', type=str2bool, default=True, help='print <n>th process')

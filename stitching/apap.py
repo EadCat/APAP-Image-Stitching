@@ -5,6 +5,10 @@ from tqdm import tqdm
 
 
 class Apap(Homography):
+    # candidates for --auto_param
+    SIGMAS = [4, 6, 8.5, 12, 16, 24]
+    GAMMAS = [0.0015, 0.005, 0.01, 0.05, 0.1]
+
     def __init__(self, opt, final_size, offset):
         """
         :param opt: Engine running Options
@@ -60,6 +64,55 @@ class Apap(Homography):
                 h = h / h[2, 2]
                 local_homography_[i, j] = h
         return local_homography_, local_weight
+
+    def param_error(self, src_point, dst_point, block=4, max_test=100):
+        """
+        held-out error of every (sigma, gamma) candidate by spatial block cross-validation
+        :param src_point: shape [sample_n, 2], the points where local homographies are estimated
+        :param dst_point: shape [sample_n, 2]
+        :param block: the bounding box of src_point is split into block x block cells
+        :param max_test: # of held-out points per fold (for speed)
+        :return: sum of squared errors [len(SIGMAS), len(GAMMAS)], # of held-out points
+        """
+        sigma, gamma = self.sigma, self.gamma
+        lo, hi = src_point.min(axis=0), src_point.max(axis=0)
+        cell = np.minimum(((src_point - lo) / (hi - lo + 1e-8) * block).astype(int), block - 1)
+        # neighboring cells fall into different folds, so that a held-out point has no training point right next to it
+        fold = (cell[:, 0] + 2 * cell[:, 1]) % 4
+
+        sse = np.zeros([len(self.SIGMAS), len(self.GAMMAS)])
+        count = 0
+        for k in range(4):
+            train = fold != k
+            test = np.nonzero(fold == k)[0]
+            if len(test) == 0 or train.sum() < 8:
+                continue
+            test = test[::int(np.ceil(len(test) / max_test))]
+            count += len(test)
+            source_pts = np.column_stack([src_point[test], np.ones(len(test))])
+            for i, s in enumerate(self.SIGMAS):
+                for j, g in enumerate(self.GAMMAS):
+                    self.sigma, self.gamma = s, g
+                    homography, _ = self.local_homography(src_point[train], dst_point[train], src_point[test][None])
+                    target_pts = self.warp_coordinate_estimate(source_pts, homography[0])
+                    sse[i, j] += np.sum((target_pts[:, :2] - dst_point[test]) ** 2)
+
+        self.sigma, self.gamma = sigma, gamma
+        return sse, count
+
+    @classmethod
+    def param_select(cls, sse, count, tolerance=0.01):
+        """
+        the smoothest (sigma, gamma) whose error is within the tolerance of the best one
+        :param sse: sum of squared errors [len(SIGMAS), len(GAMMAS)]
+        :param count: # of held-out points
+        :param tolerance: allowed error increase ratio
+        :return: sigma, gamma
+        """
+        rmse = np.sqrt(sse / count)
+        # the error is measured only near feature points, so prefer larger gamma and sigma that bend less elsewhere
+        i, j = max(zip(*np.nonzero(rmse <= rmse.min() * (1 + tolerance))), key=lambda ij: (ij[1], ij[0]))
+        return cls.SIGMAS[i], cls.GAMMAS[j]
 
     @staticmethod
     def warp_coordinate_estimate(pt, homography):

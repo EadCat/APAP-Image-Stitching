@@ -11,5 +11,5 @@ python main.py --img1 ./images/demo3/prague1.jpg ^
 --optimal_ransac True ^
 --ransac_inlier_prob 0.5 ^
 --sample_inlier 0.995 ^
---gamma 0.0015 ^
+--gamma 0.01 ^
 --sigma 8.5 %*
