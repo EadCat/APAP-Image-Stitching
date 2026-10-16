@@ -48,11 +48,12 @@ With `--imglist`, each line of the txt file is one stitching set.
 |---|---|---|
 | `--resize W H` | 400 300 | each input image is resized to this size |
 | `--mesh_size` | 100 | # of cells per side for local homographies |
-| `--gamma` | 0.0001 | weight offset in the paper (see 6.) |
-| `--sigma` | 8.5 | weight bandwidth in the paper |
+| `--gamma` | 0.01 | weight offset in the paper (see 6.) |
+| `--sigma` | 8.5 | weight bandwidth in the paper (see 6.) |
 | `--ransac_thres` | 30 | RANSAC inlier distance (px) |
 | `--ransac_sample` | 12 | # of samples per RANSAC trial |
 | `--multiband` | False | multi-band blending instead of uniform blending |
+| `--auto_param` | False | choose sigma and gamma automatically (see 6.) |
 | `--saveroot` | None | save directory (not saved if None) |
 | `--image_show` | 0 | # of result images to show, -1 shows all |
 
@@ -86,18 +87,22 @@ Multi-band blending ([Burt & Adelson, 1983](https://doi.org/10.1145/245.247)) hi
 |---|---|
 | ![Uniform](./assets/blend_uniform.jpg) | ![Multi-band](./assets/blend_multiband.jpg) |
 
-(demo5, the same warped images)
+(demo5 with sigma 8.5 and gamma 0.01, the same warped images)
 
 
 
-## 6. Gamma
+## 6. Parameter Study
 
-`gamma` is the lower bound of the moving DLT weights.
-Cells far from feature points fall back to the global homography as gamma grows.
+Moving DLT weights each feature point by `max(exp(-d / sigma^2), gamma)`, where `d` is the distance from a mesh cell.
+
+- `sigma`: how far a feature point affects the local homography.
+- `gamma`: the lower bound of the weights. Cells far from feature points fall back to the global homography as gamma grows.
+
+The defaults, **sigma 8.5 and gamma 0.01**, are chosen empirically, and all demo scripts use them.
+
+### Gamma
 
 - Recommended: **0.005 ~ 0.01** (with sigma 8.5)
-- Smaller gamma does not improve the alignment, but bends the regions without feature points more.
-- Larger gamma (0.05 ~) loses alignment accuracy on scenes with large parallax.
 
 Each colored line is one image pair, and the dashed black line is their mean.
 
@@ -109,23 +114,48 @@ Below 1.0, APAP aligns the images better than a single global homography.
 
 The larger the value, the more the regions without feature points are bent.
 
+### Automatic Selection
+
+The best values differ by scene, so sigma and gamma can also be chosen automatically.
+
+```
+python main.py --imgs a.jpg b.jpg c.jpg --auto_param True   # chooses them for each stitching stage
+python tune.py --imgs a.jpg b.jpg c.jpg                     # recommends one pair for the whole input
+```
+
+- `tune.py` takes the same options as `main.py`, and prints the values to put in `--sigma` and `--gamma`.
+- The candidates (sigma 4 ~ 24, gamma 0.0015 ~ 0.1) are evaluated by spatial cross-validation on the matched feature points.
+  Among the candidates within 1% of the lowest error, the largest gamma and sigma are chosen to bend the image less.
+- Recommendations of `tune.py` for the demo images:
+
+| Case | sigma | gamma |
+|---|---|---|
+| bridge, newspaper, pier | 24 | 0.1 |
+| hill | 6 | 0.05 |
+| ledge, uttower | 6 | 0.01 |
+| snow | 6 | 0.0015 |
+| demo2 | 8.5 | 0.0015 |
+| demo3 | 12 | 0.1 |
+| demo4 | 6 | 0.1 |
+| demo5 | 6 | 0.0015 |
+
+- The error is measured only near feature points, so the chosen values do not always look better than the defaults.
+
 
 
 ## 7. Why do stitching recursively?
 
 - If images are stitched sequentially from the left, the first image becomes the reference and the far side is stretched excessively.
-- Recursive stitching splits the list in half and warps each half toward the middle, so the center image becomes the reference. (The paper also starts from a central image.)
-- Recursive Stitching:
+- Recursive stitching splits the list in half and warps each half toward the middle, so the center image becomes the reference.
+- Recursive Stitching (`a -> b`: a is warped onto b):
 
-![Recursive](./assets/Figure2.gif)
+![Recursive](./assets/recursive.gif)
 
 - Sequential Stitching:
 
-![figure3](./assets/Figure3.gif)
+![Sequential](./assets/sequential.gif)
 
-- Limitations
-  - APAP improves the alignment of each pair, but a wide panorama is still stretched toward the edges because all images are projected onto one plane.
-  - Outer images are warped several times, so they lose some sharpness, and features are matched on already-stitched images.
+(demo2 with sigma 8.5 and gamma 0.01)
 
 
 
@@ -148,11 +178,12 @@ The larger the value, the more the regions without feature points are bent.
 ## 9. History
 
 - **2020.12.28. ~ 2021.01.03.** Initial implementation
-- **2026.10.15.** 1st major update
+- **2026.10.15. ~ 2026.10.16.** 1st major update
   - Local homographies are estimated in the canvas frame, as in the official code.
   - Mesh vertices are placed at the cell centers.
   - Faster RANSAC and local warping (vectorized).
   - Multi-band blending option (`--multiband`).
+  - Automatic sigma & gamma selection (`--auto_param`, `tune.py`).
   - Supports recent libraries (NumPy 2, OpenCV 5).
   - Bug fixes: RANSAC trial number, error handling, mask list, `--imglist` order.
   - Demo scripts are moved to `scripts/`, and results are saved in `./results`.
